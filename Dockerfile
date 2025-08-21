@@ -10,8 +10,8 @@ FROM openjdk:17-ea-17-jdk-slim-buster
 
 WORKDIR /app
 
-COPY --from=build /app/target/*.jar restauranteApp.jar
+COPY --from=build /app/target/*.jar clienteApp.jar
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "restauranteApp.jar"]
+CMD ["java", "-jar", "clienteApp.jar"]
