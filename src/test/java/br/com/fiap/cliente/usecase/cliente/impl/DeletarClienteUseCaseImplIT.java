@@ -22,7 +22,7 @@ import java.util.UUID;
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase
 @Transactional
-public class DeletarClienteUseCaseImplIT {
+class DeletarClienteUseCaseImplIT {
 
     @Autowired
     private ClienteGateway clienteGateway;

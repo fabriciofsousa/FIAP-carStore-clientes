@@ -14,7 +14,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-public class ObterClienteUseCaseTest {
+class ObterClienteUseCaseTest {
 
     ObterClienteUseCaseImpl obterClienteUseCase;
 
@@ -44,9 +44,10 @@ public class ObterClienteUseCaseTest {
         List<Cliente> clientesObtidos = obterClienteUseCase.execute();
         // Assert
         verify(clienteGateway,times(1)).listarTodos();
-        assertThat(clientesObtidos).isNotNull();
-        assertThat(clientesObtidos).isNotEmpty();
-        assertThat(clientesObtidos).hasSize(1);
+        assertThat(clientesObtidos)
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(1);
         assertThat(clientesObtidos.get(0)).isInstanceOf(Cliente.class).isNotNull();
         assertThat(clientesObtidos.get(0).getId()).isEqualTo(cliente.getId());
         assertThat(clientesObtidos.get(0).getNome()).isEqualTo(cliente.getNome());

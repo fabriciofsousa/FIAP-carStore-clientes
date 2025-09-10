@@ -15,7 +15,7 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class CriarClienteUseCaseImplTest {
+class CriarClienteUseCaseImplTest {
 
     CriarClienteUseCase criarClienteUseCase;
 

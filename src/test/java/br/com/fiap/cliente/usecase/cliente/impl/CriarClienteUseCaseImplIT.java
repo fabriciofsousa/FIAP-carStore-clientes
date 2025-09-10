@@ -21,7 +21,7 @@ import java.util.UUID;
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase
 @Transactional
-public class CriarClienteUseCaseImplIT {
+class CriarClienteUseCaseImplIT {
 
     @Autowired
     private ClienteGateway clienteGateway;
@@ -41,7 +41,7 @@ public class CriarClienteUseCaseImplIT {
     @Test
     void devePermitirCriarTabela(){
 
-        var totalRegistros = clienteGateway.listarTodos().stream().count();
+        var totalRegistros = (long) clienteGateway.listarTodos().size();
 
         assertThat(totalRegistros).isNotNegative();
 

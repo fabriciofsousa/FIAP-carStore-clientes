@@ -1,16 +1,14 @@
 package br.com.fiap.cliente.gateway.database.clienteimpl;
 
+import br.com.fiap.cliente.domain.Cliente;
+import br.com.fiap.cliente.gateway.cliente.ClienteGateway;
+import br.com.fiap.cliente.gateway.database.entity.cliente.ClienteEntity;
+import br.com.fiap.cliente.gateway.database.repository.cliente.ClienteRepository;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
-
-import br.com.fiap.cliente.gateway.database.entity.cliente.ClienteEntity;
-import org.springframework.stereotype.Repository;
-
-import br.com.fiap.cliente.domain.Cliente;
-import br.com.fiap.cliente.gateway.cliente.ClienteGateway;
-import br.com.fiap.cliente.gateway.database.repository.cliente.ClienteRepository;
 
 @Repository
 public class ClienteGatewayImpl implements ClienteGateway {
@@ -41,7 +39,7 @@ public class ClienteGatewayImpl implements ClienteGateway {
     public List<Cliente> listarTodos() {
         return clienteRepository.findAll().stream()
                 .map(entity -> new Cliente(entity.getId(), entity.getNome(), entity.getCpf(), entity.getEmail()))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

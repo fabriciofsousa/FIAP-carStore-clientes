@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class AlterarClienteUseCaseTest {
+class AlterarClienteUseCaseTest {
 
     private AlterarClienteUseCaseImpl alterarClienteUseCaseImpl;
 

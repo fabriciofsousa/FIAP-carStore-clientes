@@ -3,7 +3,6 @@ package br.com.fiap.cliente.exception;
 import br.com.fiap.cliente.config.GlobalExceptionHandler;
 import br.com.fiap.cliente.controller.cliente.ClienteController;
 import br.com.fiap.cliente.domain.Cliente;
-import br.com.fiap.cliente.exception.ClienteNaoEncontradoException;
 import br.com.fiap.cliente.usecase.cliente.AlterarClienteUseCase;
 import br.com.fiap.cliente.usecase.cliente.CriarClienteUseCase;
 import br.com.fiap.cliente.usecase.cliente.DeletarClienteUseCase;
@@ -38,11 +37,11 @@ class ClienteControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean private CriarClienteUseCase criarClienteUseCase;
-    @MockBean private ObterClienteUseCase obterClienteUseCase;
-    @MockBean private ObterClientePorIdUseCase obterClientePorIdUseCase;
-    @MockBean private AlterarClienteUseCase alterarClienteUseCase;
-    @MockBean private DeletarClienteUseCase deletarCliente;
+    @MockBean CriarClienteUseCase criarClienteUseCase;
+    @MockBean ObterClienteUseCase obterClienteUseCase;
+    @MockBean ObterClientePorIdUseCase obterClientePorIdUseCase;
+    @MockBean AlterarClienteUseCase alterarClienteUseCase;
+    @MockBean DeletarClienteUseCase deletarCliente;
 
     @Test
     void getById_quandoNaoEncontrado_entao404_comMensagemDoHandler() throws Exception {
