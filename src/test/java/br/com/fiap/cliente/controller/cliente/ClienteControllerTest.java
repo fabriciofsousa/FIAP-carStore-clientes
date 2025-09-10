@@ -82,7 +82,7 @@ public class ClienteControllerTest {
     {
 
         UUID uuid = UUID.randomUUID();
-        var cliente = new Cliente(uuid, "Joao","12345678901");
+        var cliente = new Cliente(uuid, "Joao","12345678901","joao.silva@email.com");
 
         when(criarClienteUseCase.execute(any(Cliente.class))).thenReturn(cliente);
 
@@ -102,7 +102,7 @@ public class ClienteControllerTest {
     public void devePermitirObterClientePorId() throws Exception
     {
         UUID uuid = UUID.randomUUID();
-        var cliente = new Cliente(uuid, "Joao","12345678901");
+        var cliente = new Cliente(uuid, "Joao","12345678901","joao.silva@email.com");
 
         when(obterClientePorIdUseCase.execute(any())).thenReturn(Optional.of(cliente));
 
@@ -118,7 +118,7 @@ public class ClienteControllerTest {
     public void devePermitirObterCliente() throws Exception
     {
         UUID uuid = UUID.randomUUID();
-        var cliente = new Cliente(uuid, "Joao","12345678901");
+        var cliente = new Cliente(uuid, "Joao","12345678901","joao.silva@email.com");
 
         when(obterClienteUseCase.execute()).thenReturn(java.util.List.of(cliente));
 
@@ -134,7 +134,7 @@ public class ClienteControllerTest {
     @Test
     void deveAtualizarClienteComSucesso() throws Exception {
         UUID uuid = UUID.randomUUID();
-        var clienteAtualizado = new Cliente(uuid, "Joao","12345678901");
+        var clienteAtualizado = new Cliente(uuid, "Joao","12345678901","joao.silva@email.com");
         clienteAtualizado.setNome("Joao Silva");
         clienteAtualizado.setCpf("12345678902");
         when(alterarClienteUseCase.execute(any(), any(Cliente.class))).thenReturn(clienteAtualizado);

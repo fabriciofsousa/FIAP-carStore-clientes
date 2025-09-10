@@ -27,20 +27,20 @@ public class ClienteGatewayImpl implements ClienteGateway {
         entity.setNome(cliente.getNome());
         entity.setCpf(cliente.getCpf());
         ClienteEntity savedEntity = clienteRepository.save(entity);
-        return new Cliente(savedEntity.getId(), savedEntity.getNome(), savedEntity.getCpf());
+        return new Cliente(savedEntity.getId(), savedEntity.getNome(), savedEntity.getCpf(), savedEntity.getEmail());
 
     }
 
     @Override
     public Optional<Cliente> buscarPorId(UUID id) {
         return clienteRepository.findById(id)
-                .map(entity -> new Cliente(entity.getId(), entity.getNome(), entity.getCpf()));
+                .map(entity -> new Cliente(entity.getId(), entity.getNome(), entity.getCpf(), entity.getEmail()));
     }
 
     @Override
     public List<Cliente> listarTodos() {
         return clienteRepository.findAll().stream()
-                .map(entity -> new Cliente(entity.getId(), entity.getNome(), entity.getCpf()))
+                .map(entity -> new Cliente(entity.getId(), entity.getNome(), entity.getCpf(), entity.getEmail()))
                 .collect(Collectors.toList());
     }
 

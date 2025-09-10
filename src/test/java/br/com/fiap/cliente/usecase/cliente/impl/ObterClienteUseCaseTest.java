@@ -37,7 +37,7 @@ public class ObterClienteUseCaseTest {
     @Test
     void devePermitirObterTodosClientes() {
         // Arrange
-        Cliente cliente = new Cliente(UUID.randomUUID(), "José", "12345678901");
+        Cliente cliente = new Cliente(UUID.randomUUID(), "José", "12345678901","joao.silva@email.com");
         
         when(clienteGateway.listarTodos()).thenReturn(List.of(cliente));
         // Act

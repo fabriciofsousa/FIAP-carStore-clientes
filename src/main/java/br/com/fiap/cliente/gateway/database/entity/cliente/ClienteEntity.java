@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -20,5 +21,6 @@ public class ClienteEntity {
     private UUID id;
     private String nome;
     private String cpf;
+    private String email;
 
 }

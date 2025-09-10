@@ -38,7 +38,7 @@ public class DeletarClienteUseCaseImplTest {
     void devePermitirDeletarUmClientePeloId() {
         // Arrange
         UUID id = UUID.randomUUID();
-        Cliente cliente = new Cliente(id,"José","12345678901");
+        Cliente cliente = new Cliente(id,"José","12345678901","joao.silva@email.com");
         UUID idCliente = cliente.getId();
         when(clienteGateway.buscarPorId(idCliente)).thenReturn(Optional.of(cliente));
         doNothing().when(clienteGateway).deletar(idCliente);
