@@ -1,20 +1,14 @@
 package br.com.fiap.cliente.controller.cliente;
 
-import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
-import static org.hamcrest.Matchers.equalTo;
-
 import br.com.fiap.cliente.ClienteApplication;
 import br.com.fiap.cliente.controller.cliente.dto.ClienteRequestDTO;
-import io.restassured.RestAssured;
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
@@ -25,11 +19,11 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import io.restassured.module.mockmvc.RestAssuredMockMvc;
-
 import javax.sql.DataSource;
 import java.util.HashMap;
-import java.util.UUID;
+
+import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
+import static org.hamcrest.Matchers.equalTo;
 
 @SpringBootTest(
         classes = ClienteApplication.class,
@@ -38,8 +32,11 @@ import java.util.UUID;
 @AutoConfigureMockMvc
 public class ClienteControllerIT {
 
-    @Autowired
-    private WebApplicationContext context;
+    private final WebApplicationContext context;
+
+    public ClienteControllerIT(WebApplicationContext context) {
+        this.context = context;
+    }
 
     @BeforeEach
     public void setup() {

@@ -1,22 +1,9 @@
 package br.com.fiap.cliente.controller.cliente;
 
 
-import static org.mockito.ArgumentMatchers.any;
-
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
+import br.com.fiap.cliente.domain.Cliente;
+import br.com.fiap.cliente.usecase.cliente.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,14 +14,15 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Optional;
+import java.util.UUID;
 
-import br.com.fiap.cliente.domain.Cliente;
-import br.com.fiap.cliente.usecase.cliente.AlterarClienteUseCase;
-import br.com.fiap.cliente.usecase.cliente.CriarClienteUseCase;
-import br.com.fiap.cliente.usecase.cliente.DeletarClienteUseCase;
-import br.com.fiap.cliente.usecase.cliente.ObterClientePorIdUseCase;
-import br.com.fiap.cliente.usecase.cliente.ObterClienteUseCase;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 public class ClienteControllerTest {
@@ -78,7 +66,7 @@ public class ClienteControllerTest {
     }
 
     @Test
-    public void devePermitirCriarCliente() throws Exception
+    void devePermitirCriarCliente() throws Exception
     {
 
         UUID uuid = UUID.randomUUID();
@@ -99,7 +87,7 @@ public class ClienteControllerTest {
 
 
     @Test
-    public void devePermitirObterClientePorId() throws Exception
+    void devePermitirObterClientePorId() throws Exception
     {
         UUID uuid = UUID.randomUUID();
         var cliente = new Cliente(uuid, "Joao","12345678901","joao.silva@email.com");
@@ -115,7 +103,7 @@ public class ClienteControllerTest {
     }
 
     @Test
-    public void devePermitirObterCliente() throws Exception
+    void devePermitirObterCliente() throws Exception
     {
         UUID uuid = UUID.randomUUID();
         var cliente = new Cliente(uuid, "Joao","12345678901","joao.silva@email.com");
