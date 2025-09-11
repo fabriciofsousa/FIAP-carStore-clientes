@@ -22,7 +22,7 @@ import br.com.fiap.cliente.gateway.cliente.ClienteGateway;
 @ActiveProfiles("test")
 @Transactional
 @AutoConfigureTestDatabase
-public class ObterClienteUseCaseImplIT {
+class ObterClienteUseCaseImplIT {
 
 
    @Autowired

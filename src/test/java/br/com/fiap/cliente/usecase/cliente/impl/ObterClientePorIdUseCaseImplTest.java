@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import static org.mockito.Mockito.*;
 
-public class ObterClientePorIdUseCaseImplTest {
+class ObterClientePorIdUseCaseImplTest {
 
     ObterClientePorIdUseCaseImpl obterClientePorIdUseCaseImpl;
     @Mock
@@ -37,7 +37,7 @@ public class ObterClientePorIdUseCaseImplTest {
     @Test
     void devePermitirObterUmClientePeloId() {
         // Arrange
-        Cliente cliente = new Cliente(UUID.randomUUID(),"José","12345678901");
+        Cliente cliente = new Cliente(UUID.randomUUID(),"José","12345678901","joao.silva@email.com");
         UUID id = cliente.getId();
         when(clienteGateway.buscarPorId(any())).thenReturn(Optional.of(cliente));
 

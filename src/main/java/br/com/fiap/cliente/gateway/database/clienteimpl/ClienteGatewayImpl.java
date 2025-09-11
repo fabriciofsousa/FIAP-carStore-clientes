@@ -1,16 +1,14 @@
 package br.com.fiap.cliente.gateway.database.clienteimpl;
 
+import br.com.fiap.cliente.domain.Cliente;
+import br.com.fiap.cliente.gateway.cliente.ClienteGateway;
+import br.com.fiap.cliente.gateway.database.entity.cliente.ClienteEntity;
+import br.com.fiap.cliente.gateway.database.repository.cliente.ClienteRepository;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
-
-import br.com.fiap.cliente.gateway.database.entity.cliente.ClienteEntity;
-import org.springframework.stereotype.Repository;
-
-import br.com.fiap.cliente.domain.Cliente;
-import br.com.fiap.cliente.gateway.cliente.ClienteGateway;
-import br.com.fiap.cliente.gateway.database.repository.cliente.ClienteRepository;
 
 @Repository
 public class ClienteGatewayImpl implements ClienteGateway {
@@ -27,21 +25,21 @@ public class ClienteGatewayImpl implements ClienteGateway {
         entity.setNome(cliente.getNome());
         entity.setCpf(cliente.getCpf());
         ClienteEntity savedEntity = clienteRepository.save(entity);
-        return new Cliente(savedEntity.getId(), savedEntity.getNome(), savedEntity.getCpf());
+        return new Cliente(savedEntity.getId(), savedEntity.getNome(), savedEntity.getCpf(), savedEntity.getEmail());
 
     }
 
     @Override
     public Optional<Cliente> buscarPorId(UUID id) {
         return clienteRepository.findById(id)
-                .map(entity -> new Cliente(entity.getId(), entity.getNome(), entity.getCpf()));
+                .map(entity -> new Cliente(entity.getId(), entity.getNome(), entity.getCpf(), entity.getEmail()));
     }
 
     @Override
     public List<Cliente> listarTodos() {
         return clienteRepository.findAll().stream()
-                .map(entity -> new Cliente(entity.getId(), entity.getNome(), entity.getCpf()))
-                .collect(Collectors.toList());
+                .map(entity -> new Cliente(entity.getId(), entity.getNome(), entity.getCpf(), entity.getEmail()))
+                .toList();
     }
 
     @Override
