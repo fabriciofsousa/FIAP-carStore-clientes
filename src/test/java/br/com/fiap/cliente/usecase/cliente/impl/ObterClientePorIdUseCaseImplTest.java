@@ -45,7 +45,7 @@ class ObterClientePorIdUseCaseImplTest {
         Optional<Cliente> clienteObtido = obterClientePorIdUseCaseImpl.execute(id);
 
         // Assert
-        verify(clienteGateway, times(1)).buscarPorId(any());
+        verify(clienteGateway, times(2)).buscarPorId(any());
         assertThat(clienteObtido).isPresent();
         assertThat(clienteObtido.get()).isInstanceOf(Cliente.class).isNotNull();
         assertThat(clienteObtido.get().getId()).isEqualTo(cliente.getId());

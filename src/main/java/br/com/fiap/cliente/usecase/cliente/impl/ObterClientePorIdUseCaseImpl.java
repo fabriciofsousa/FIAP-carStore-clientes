@@ -1,6 +1,7 @@
 package br.com.fiap.cliente.usecase.cliente.impl;
 
 import br.com.fiap.cliente.domain.Cliente;
+import br.com.fiap.cliente.exception.ClienteNaoEncontradoException;
 import br.com.fiap.cliente.gateway.cliente.ClienteGateway;
 import br.com.fiap.cliente.usecase.cliente.ObterClientePorIdUseCase;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ public class ObterClientePorIdUseCaseImpl implements ObterClientePorIdUseCase {
     @Override
     public Optional<Cliente> execute(UUID id)
     {
+        if (clienteGateway.buscarPorId(id).isEmpty()) {
+            throw new ClienteNaoEncontradoException("Cliente não encontrado");
+        }
         return clienteGateway.buscarPorId(id);
     }
 }

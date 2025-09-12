@@ -2,6 +2,7 @@ package br.com.fiap.cliente.usecase.cliente.impl;
 
 import br.com.fiap.cliente.domain.Cliente;
 import br.com.fiap.cliente.gateway.cliente.ClienteGateway;
+import jakarta.validation.Validator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ class AlterarClienteUseCaseTest {
     @BeforeEach
     void setup(){
         openMocks = MockitoAnnotations.openMocks(this);
-        alterarClienteUseCaseImpl = new AlterarClienteUseCaseImpl(clienteGateway);
+        alterarClienteUseCaseImpl = new AlterarClienteUseCaseImpl(clienteGateway, mock(Validator.class));
     }
 
     @AfterEach
