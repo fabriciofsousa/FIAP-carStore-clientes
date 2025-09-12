@@ -49,7 +49,7 @@ public class ClienteControllerIT {
         void deveCriarUmCliente() {
             ClienteRequestDTO cliente = new ClienteRequestDTO(
                     "João Silva",
-                    "07406565940",
+                    "44261755009",
                     "joao.silva@email.com"
             );
 
@@ -62,7 +62,7 @@ public class ClienteControllerIT {
                     .statusCode(HttpStatus.OK.value())
                     .and()
                     .body("nome", equalTo("João Silva"))
-                    .body("cpf", equalTo("07406565940"));
+                    .body("cpf", equalTo("44261755009"));
         }
     }
 

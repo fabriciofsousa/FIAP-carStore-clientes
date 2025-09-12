@@ -4,6 +4,7 @@ import br.com.fiap.cliente.controller.cliente.dto.ClienteRequestDTO;
 import br.com.fiap.cliente.controller.cliente.mapper.ClienteMapper;
 import br.com.fiap.cliente.domain.Cliente;
 import br.com.fiap.cliente.usecase.cliente.*;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> criarCliente(@RequestBody ClienteRequestDTO clienteRequestDTO) {
+    public ResponseEntity<Cliente> criarCliente(@RequestBody @Valid ClienteRequestDTO clienteRequestDTO) {
         var cliente = ClienteMapper.toDomain(clienteRequestDTO);
 
         return ResponseEntity.ok(criarClienteUseCase.execute(cliente));
@@ -46,8 +47,10 @@ public class ClienteController {
     public ResponseEntity<List<Cliente>> obterCliente() {
         return ResponseEntity.ok(obterClienteUseCase.execute());
     }
+
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> updateCliente(@PathVariable UUID id, @RequestBody Cliente cliente) {
+    public ResponseEntity<Cliente> updateCliente(@PathVariable UUID id, @RequestBody @Valid ClienteRequestDTO clienteRequestDTO) {
+        var cliente = ClienteMapper.toDomain(clienteRequestDTO);
         return ResponseEntity.ok(alterarClienteUseCase.execute(id, cliente));
     }
 
