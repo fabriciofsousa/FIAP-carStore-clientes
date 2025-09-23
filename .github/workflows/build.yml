@@ -55,7 +55,7 @@ jobs:
           distribution: temurin
           java-version: 17
       - name: Run Integration Tests
-        run: mvn clean verify -P integration-test -Dtest=*IT
+        run: ./mvnw verify -Dgroups=integration-test
 
   system-tests:
     name: System Tests
@@ -69,7 +69,7 @@ jobs:
           distribution: temurin
           java-version: 17
       - name: Run System Tests
-        run: mvn clean verify -P system-test -Dtest=CucumberTest
+        run: ./mvnw verify -Dgroups=system-test
 
   performance-tests:
     name: Performance Tests
@@ -83,39 +83,38 @@ jobs:
           distribution: temurin
           java-version: 17
       - name: Run Performance Tests
-        run: mvn clean verify -P performance-test
-
+        run: ./mvnw verify -Dgroups=performance-test
   test:
     runs-on: ubuntu-latest
     needs: build
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
       - name: Run tests
-        run: mvn clean test -Dtest=*Test -DexcludedGroups=!IT,!CucumberTest
+        run: mvn test
 
   coverage:
     runs-on: ubuntu-latest
     needs: [unit-tests, integration-tests, system-tests, performance-tests, test]
     steps:
-        - name: Checkout code
-          uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-        - name: Generate JaCoCo coverage report
-          run: mvn jacoco:report
+      - name: Generate JaCoCo coverage report
+        run: mvn jacoco:report
 
-        - name: Print test coverage to log
-          run: |
-            echo "=== Coverage Summary (jacoco.csv) ==="
-            COVERAGE_FILE=target/site/jacoco/jacoco.csv
-            if [ -f "$COVERAGE_FILE" ]; then
-              cat "$COVERAGE_FILE"
-            else
-              echo "Coverage report not found at $COVERAGE_FILE"
-            fi
-
+      - name: Print test coverage to log
+        run: |
+          echo "=== Coverage Summary (jacoco.csv) ==="
+          COVERAGE_FILE=target/site/jacoco/jacoco.csv
+          if [ -f "$COVERAGE_FILE" ]; then
+            cat "$COVERAGE_FILE"
+          else
+            echo "Coverage report not found at $COVERAGE_FILE"
+          fi
   SonarQube:
-    name: Build and analyze
+    name: SonarQube
     needs: coverage
     runs-on: ubuntu-latest
     steps:
