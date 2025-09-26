@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-    - host: carstore.com   # Substitua pelo seu domínio ou use nip.io para teste
+    - host: carstore.com
       http:
         paths:
           - path: /
