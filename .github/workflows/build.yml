@@ -157,3 +157,9 @@ jobs:
           kubectl apply -f k8s/service.yaml
           kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.13.0/deploy/static/provider/cloud/deploy.yaml
           kubectl apply -f k8s/ingress.yaml
+      - name: Wait for ingress-nginx to be ready
+        run: |
+          kubectl wait --namespace ingress-nginx \
+            --for=condition=ready pod \
+            --selector=app.kubernetes.io/component=controller \
+            --timeout=120s    
