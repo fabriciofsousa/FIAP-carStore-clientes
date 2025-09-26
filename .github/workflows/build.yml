@@ -155,20 +155,6 @@ jobs:
 
       - name: Deploy app manifests
         run: |
-          kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
 
-      - name: Deploy ingress-nginx
-        run: |
-          kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.13.0/deploy/static/provider/cloud/deploy.yaml
-
-      - name: Wait for ingress-nginx controller to be ready
-        run: |
-          kubectl wait --namespace ingress-nginx \
-            --for=condition=ready pod \
-            --selector=app.kubernetes.io/component=controller \
-            --timeout=180s
-
-      - name: Apply Ingress
-        run: kubectl apply -f k8s/ingress.yaml
 
