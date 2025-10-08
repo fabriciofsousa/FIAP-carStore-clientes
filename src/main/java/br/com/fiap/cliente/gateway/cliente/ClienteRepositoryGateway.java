@@ -15,4 +15,5 @@ public interface ClienteRepositoryGateway {
 
     void deletar(UUID id);
 
+    Cliente buscarPorEmail(String email);
 }

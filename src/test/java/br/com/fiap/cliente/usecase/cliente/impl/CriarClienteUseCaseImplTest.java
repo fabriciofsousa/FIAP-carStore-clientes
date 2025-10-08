@@ -2,6 +2,7 @@ package br.com.fiap.cliente.usecase.cliente.impl;
 
 import br.com.fiap.cliente.domain.Cliente;
 import br.com.fiap.cliente.gateway.cliente.ClienteGateway;
+import br.com.fiap.cliente.gateway.cliente.CognitoGateway;
 import br.com.fiap.cliente.usecase.cliente.CriarClienteUseCase;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.AfterEach;
@@ -31,7 +32,7 @@ class CriarClienteUseCaseImplTest {
     @BeforeEach
     void setup(){
         openMocks = MockitoAnnotations.openMocks(this);
-        criarClienteUseCase = new CriarClienteUseCaseImpl(clienteGateway, validator);
+        criarClienteUseCase = new CriarClienteUseCaseImpl(clienteGateway, validator, mock(CognitoGateway.class));
     }
 
     @AfterEach

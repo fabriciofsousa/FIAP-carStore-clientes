@@ -1,6 +1,7 @@
 package br.com.fiap.cliente.controller.cliente;
 
 import br.com.fiap.cliente.controller.cliente.dto.ClienteRequestDTO;
+import br.com.fiap.cliente.controller.cliente.dto.ClienteResponseDTO;
 import br.com.fiap.cliente.controller.cliente.mapper.ClienteMapper;
 import br.com.fiap.cliente.domain.Cliente;
 import br.com.fiap.cliente.usecase.cliente.*;
@@ -32,7 +33,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> criarCliente(@RequestBody @Valid ClienteRequestDTO clienteRequestDTO) {
+    public ResponseEntity<ClienteResponseDTO> criarCliente(@RequestBody @Valid ClienteRequestDTO clienteRequestDTO) {
         var cliente = ClienteMapper.toDomain(clienteRequestDTO);
 
         return ResponseEntity.ok(criarClienteUseCase.execute(cliente));
