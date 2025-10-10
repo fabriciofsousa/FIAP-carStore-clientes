@@ -32,7 +32,7 @@ public class CognitoGatewayImpl implements CognitoGateway {
         this.userPoolId = userPoolId;
         this.cognitoClient = CognitoIdentityProviderClient.builder()
                 .region(Region.of(cognitoRegion))
-                .credentialsProvider(ProfileCredentialsProvider.create("carstore"))
+                .credentialsProvider(DefaultCredentialsProvider.create())
                 .build();
     }
 
