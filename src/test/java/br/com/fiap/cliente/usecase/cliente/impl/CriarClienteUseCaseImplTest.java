@@ -27,13 +27,16 @@ class CriarClienteUseCaseImplTest {
 
     @Mock Validator validator;
 
+    @Mock CognitoGateway cognitoGateway;
+
 
     AutoCloseable openMocks;
 
     @BeforeEach
     void setup(){
         openMocks = MockitoAnnotations.openMocks(this);
-        criarClienteUseCase = new CriarClienteUseCaseImpl(clienteGateway, validator, mock(CognitoGateway.class));
+        criarClienteUseCase = new CriarClienteUseCaseImpl(clienteGateway, validator, cognitoGateway);
+        when(cognitoGateway.cadastrarUsuario(any(), any(), any())).thenReturn(ClienteResponseDTO.builder().senha("senha123").build());
     }
 
     @AfterEach
@@ -53,7 +56,7 @@ class CriarClienteUseCaseImplTest {
         //ASSERT
         verify(clienteGateway, times(1)).salvar(any(Cliente.class));
         assertThat(clienteObtido).isNotNull();
-        assertThat(cliente.getId()).isEqualTo(clienteObtido.getId());
+        assertThat(cliente.getId().toString()).isEqualTo(clienteObtido.getId().toString());
         assertThat(cliente.getNome()).isEqualTo(clienteObtido.getNome());
         assertThat(cliente.getCpf()).isEqualTo(clienteObtido.getCpf());
     }

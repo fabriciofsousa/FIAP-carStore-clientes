@@ -1,6 +1,7 @@
 package br.com.fiap.cliente.controller.cliente;
 
 
+import br.com.fiap.cliente.controller.cliente.dto.ClienteResponseDTO;
 import br.com.fiap.cliente.domain.Cliente;
 import br.com.fiap.cliente.usecase.cliente.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -70,7 +71,7 @@ public class ClienteControllerTest {
     {
 
         UUID uuid = UUID.randomUUID();
-        var cliente = new Cliente(uuid, "Joao","12345678901","joao.silva@email.com");
+        var cliente = new ClienteResponseDTO("1", "Joao","12345678901","joao.silva@email.com", "pass");
 
         when(criarClienteUseCase.execute(any(Cliente.class))).thenReturn(cliente);
 
@@ -78,7 +79,7 @@ public class ClienteControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(cliente)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(uuid.toString()))
+                .andExpect(jsonPath("$.id").value("1"))
                 .andExpect(jsonPath("$.nome").value("Joao"))
                 .andExpect(jsonPath("$.cpf").value("12345678901"));
 
