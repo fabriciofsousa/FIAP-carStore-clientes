@@ -136,8 +136,8 @@ jobs:
       - name: Push Docker image
         run: docker push fabriciofsousa/fiap-carstore-clientes:latest
 
-  deploy-eks:
-    name: Deploy to EKS
+  deploy-ecs:
+    name: Deploy to ECS
     runs-on: ubuntu-latest
     needs: docker-build-push
     steps:
@@ -150,11 +150,17 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Update kubeconfig
-        run: aws eks update-kubeconfig --name carstore-eks --region us-east-1
-
-      - name: Deploy app manifests
+      - name: Register ECS task definition
         run: |
-          kubectl apply -f k8s/service.yaml
+          aws ecs register-task-definition \
+            --cli-input-json file://ecs/task-definition.json
+
+      - name: Update ECS service
+        run: |
+          aws ecs update-service \
+            --cluster carstore-eks \
+            --service carstore-service \
+            --task-definition carstore-clientes-task \
+            --desired-count 2
 
 

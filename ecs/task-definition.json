@@ -1,0 +1,31 @@
+{
+  "family": "carstore-clientes-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "arn:aws:iam::797666780798:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "carstore-clientes",
+      "image": "797666780798.dkr.ecr.us-east-1.amazonaws.com/carstore:clientes-latest",
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "hostPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        { "name": "COGNITO_CLIENT_ID", "value": "67qc5c8afm9ht3ir4vju2kl1if" },
+        { "name": "COGNITO_REGION", "value": "us-east-1" },
+        { "name": "COGNITO_USER_POOL_ID", "value": "us-east-1_9NTISG7xy" },
+        { "name": "DB_HOST", "value": "carstore-rds.cgtguu4oq8ce.us-east-1.rds.amazonaws.com" },
+        { "name": "DB_NAME", "value": "carstore" },
+        { "name": "DB_USERNAME", "value": "postgres" },
+        { "name": "DB_PASSWORD", "value": "postgres" },
+        { "name": "DB_PORT", "value": "5432" }
+      ]
+    }
+  ]
+}

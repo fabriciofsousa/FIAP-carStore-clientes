@@ -1,0 +1,30 @@
+{
+  "family": "carstore-clientes-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512",
+  "executionRoleArn": "arn:aws:iam::797666780798:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::797666780798:role/ecsTaskRole",
+  "containerDefinitions": [
+    {
+      "name": "app",
+      "image": "797666780798.dkr.ecr.us-east-1.amazonaws.com/carstore:clientes-latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/carstore-clientes",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ]
+}
