@@ -73,6 +73,32 @@ public class CognitoGatewayImpl implements CognitoGateway {
         return clienteResponseDTO;
     }
 
+    @Override
+    public void atualizarUsuario(String email, String novoNome, String novoEmail) {
+        try {
+            AdminUpdateUserAttributesRequest updateRequest = AdminUpdateUserAttributesRequest.builder()
+                    .userPoolId(userPoolId)
+                    .username(email)
+                    .userAttributes(
+                            AttributeType.builder().name("name").value(novoNome).build(),
+                            AttributeType.builder().name("email").value(novoEmail).build(),
+                            AttributeType.builder().name("email_verified").value("true").build()
+                    )
+                    .build();
+
+            cognitoClient.adminUpdateUserAttributes(updateRequest);
+
+            System.out.println("Usuário " + email + " atualizado com sucesso no Cognito.");
+
+        } catch (UserNotFoundException e) {
+            throw new ClienteException("Usuário não encontrado no Cognito: " + email);
+        } catch (InvalidParameterException e) {
+            throw new ClienteException("Parâmetros inválidos para atualização no Cognito: " + e.getMessage());
+        } catch (CognitoIdentityProviderException e) {
+            throw new ClienteException("Erro Cognito: " + e.awsErrorDetails().errorMessage());
+        }
+    }
+
 
 
 }

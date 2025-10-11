@@ -5,4 +5,6 @@ import br.com.fiap.cliente.controller.cliente.dto.ClienteResponseDTO;
 public interface CognitoGateway {
 
     public ClienteResponseDTO cadastrarUsuario(String email, String nome, ClienteResponseDTO clienteResponseDTO);
+
+    public void atualizarUsuario(String email, String novoNome, String novoEmail);
 }
