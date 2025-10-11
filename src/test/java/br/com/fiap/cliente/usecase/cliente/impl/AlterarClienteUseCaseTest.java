@@ -27,7 +27,7 @@ class AlterarClienteUseCaseTest {
     ClienteGateway clienteGateway;
 
 
-    @MockBean
+    @Mock
     CognitoGateway cognitoGateway;
 
     AutoCloseable openMocks;
@@ -35,6 +35,7 @@ class AlterarClienteUseCaseTest {
     @BeforeEach
     void setup(){
         openMocks = MockitoAnnotations.openMocks(this);
+        doNothing().when(cognitoGateway).atualizarUsuario(any(), any(), any());
         alterarClienteUseCaseImpl = new AlterarClienteUseCaseImpl(clienteGateway, mock(Validator.class), cognitoGateway);
     }
 
