@@ -1,16 +1,28 @@
 version: '3.9'
 
 services:
-  app:
+  clientes-app:
+    container_name: clientes-app
     image: fabriciofsousa/fiap-carstore-clientes:latest
     environment:
+      SPRING_PROFILES_ACTIVE: dev
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_carstore:5432/FIAP-carStore
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
+      #COGNITO_CLIENT_ID: 5qpcrng5h5jloi329q4shb9j7m
+      #COGNITO_REGION=us: east-1
+      #COGNITO_USER_POOL_ID: us-east-1_QdkyBWXNc
+      DB_HOST: postgres_carstore
+      DB_NAME: carstore
+      DB_PASSWORD: postgres
+      DB_PORT: 5432
+      DB_USERNAME: postgres
     ports:
       - "8081:8080"
     networks:
-      - carstore-network
+      carstore-network:
+        aliases:
+          - clientes-app
     depends_on: []
 
 networks:

@@ -1,4 +1,4 @@
-package br.com.fiap.cliente.gateway.database.clienteimpl;
+package br.com.fiap.cliente.gateway.clienteimpl;
 
 import br.com.fiap.cliente.domain.Cliente;
 import br.com.fiap.cliente.gateway.cliente.ClienteGateway;
@@ -47,5 +47,15 @@ public class ClienteGatewayImpl implements ClienteGateway {
     public void deletar(UUID id) {
 
         clienteRepository.deleteById(id);
+    }
+
+    @Override
+    public Cliente buscarPorEmail(String email) {
+        ClienteEntity entity = clienteRepository.findByEmail(email);
+        if(entity == null) {
+            return null;
+        }
+        return new Cliente(entity.getId(), entity.getNome(), entity.getCpf(), entity.getEmail());
+
     }
 }

@@ -1,7 +1,9 @@
 package br.com.fiap.cliente.usecase.cliente.impl;
 
+import br.com.fiap.cliente.controller.cliente.dto.ClienteResponseDTO;
 import br.com.fiap.cliente.domain.Cliente;
 import br.com.fiap.cliente.gateway.cliente.ClienteGateway;
+import br.com.fiap.cliente.gateway.cliente.CognitoGateway;
 import br.com.fiap.cliente.usecase.cliente.CriarClienteUseCase;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.AfterEach;
@@ -25,13 +27,16 @@ class CriarClienteUseCaseImplTest {
 
     @Mock Validator validator;
 
+    @Mock CognitoGateway cognitoGateway;
+
 
     AutoCloseable openMocks;
 
     @BeforeEach
     void setup(){
         openMocks = MockitoAnnotations.openMocks(this);
-        criarClienteUseCase = new CriarClienteUseCaseImpl(clienteGateway, validator);
+        criarClienteUseCase = new CriarClienteUseCaseImpl(clienteGateway, validator, cognitoGateway);
+        when(cognitoGateway.cadastrarUsuario(any(), any(), any())).thenReturn(ClienteResponseDTO.builder().senha("senha123").build());
     }
 
     @AfterEach
@@ -46,12 +51,12 @@ class CriarClienteUseCaseImplTest {
         when(clienteGateway.salvar(any(Cliente.class))).thenReturn(cliente);
 
         //ACT
-        Cliente clienteObtido = criarClienteUseCase.execute(cliente);
+        ClienteResponseDTO clienteObtido = criarClienteUseCase.execute(cliente);
 
         //ASSERT
         verify(clienteGateway, times(1)).salvar(any(Cliente.class));
         assertThat(clienteObtido).isNotNull();
-        assertThat(cliente.getId()).isEqualTo(clienteObtido.getId());
+        assertThat(cliente.getId().toString()).isEqualTo(clienteObtido.getId().toString());
         assertThat(cliente.getNome()).isEqualTo(clienteObtido.getNome());
         assertThat(cliente.getCpf()).isEqualTo(clienteObtido.getCpf());
     }

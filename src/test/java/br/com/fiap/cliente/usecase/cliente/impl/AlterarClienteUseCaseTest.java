@@ -2,12 +2,14 @@ package br.com.fiap.cliente.usecase.cliente.impl;
 
 import br.com.fiap.cliente.domain.Cliente;
 import br.com.fiap.cliente.gateway.cliente.ClienteGateway;
+import br.com.fiap.cliente.gateway.cliente.CognitoGateway;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -24,12 +26,17 @@ class AlterarClienteUseCaseTest {
     @Mock
     ClienteGateway clienteGateway;
 
+
+    @Mock
+    CognitoGateway cognitoGateway;
+
     AutoCloseable openMocks;
 
     @BeforeEach
     void setup(){
         openMocks = MockitoAnnotations.openMocks(this);
-        alterarClienteUseCaseImpl = new AlterarClienteUseCaseImpl(clienteGateway, mock(Validator.class));
+        doNothing().when(cognitoGateway).atualizarUsuario(any(), any(), any());
+        alterarClienteUseCaseImpl = new AlterarClienteUseCaseImpl(clienteGateway, mock(Validator.class), cognitoGateway);
     }
 
     @AfterEach

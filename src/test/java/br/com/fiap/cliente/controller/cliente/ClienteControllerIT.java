@@ -2,20 +2,28 @@ package br.com.fiap.cliente.controller.cliente;
 
 import br.com.fiap.cliente.ClienteApplication;
 import br.com.fiap.cliente.controller.cliente.dto.ClienteRequestDTO;
+import br.com.fiap.cliente.controller.cliente.dto.ClienteResponseDTO;
+import br.com.fiap.cliente.gateway.cliente.CognitoGateway;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -24,15 +32,25 @@ import java.util.HashMap;
 
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest(
         classes = ClienteApplication.class,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
+        webEnvironment = SpringBootTest.WebEnvironment.MOCK,
+        properties = {
+                "spring.security.oauth2.client.provider.cognito.issuer-uri=http://fake-issuer",
+                "spring.main.allow-bean-definition-overriding=true"
+        }
 )
-@AutoConfigureMockMvc
+@Import({TestSecurityConfig.class, JwtDecoderTestConfig.class, OAuth2ClientTestConfig.class})
+@AutoConfigureMockMvc(addFilters = false)
 public class ClienteControllerIT {
 
     private final WebApplicationContext context;
+
+    @MockBean
+    private CognitoGateway cognitoGateway;
 
     public ClienteControllerIT(WebApplicationContext context) {
         this.context = context;
@@ -40,6 +58,8 @@ public class ClienteControllerIT {
 
     @BeforeEach
     public void setup() {
+        when(cognitoGateway.cadastrarUsuario(any(), any(), any()))
+                .thenReturn(ClienteResponseDTO.builder().senha("12312").build());
         RestAssuredMockMvc.mockMvc(MockMvcBuilders.webAppContextSetup(context).build());
     }
 

@@ -1,4 +1,4 @@
-FROM maven:3.9.9-amazoncorretto-17-al2023 AS build
+FROM maven:3.9.9-eclipse-temurin-17 AS build
 
 WORKDIR /app
 
@@ -13,5 +13,7 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar clienteApp.jar
 
 EXPOSE 8080
+
+ENV SPRING_PROFILES_ACTIVE=dev
 
 CMD ["java", "-jar", "clienteApp.jar"]
