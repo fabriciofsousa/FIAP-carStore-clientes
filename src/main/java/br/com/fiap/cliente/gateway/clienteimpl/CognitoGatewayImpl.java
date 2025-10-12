@@ -4,6 +4,8 @@ import br.com.fiap.cliente.controller.cliente.dto.ClienteResponseDTO;
 import br.com.fiap.cliente.exception.ClienteException;
 import br.com.fiap.cliente.gateway.cliente.CognitoGateway;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
@@ -16,6 +18,7 @@ import java.security.SecureRandom;
 import static br.com.fiap.cliente.controller.cliente.util.PasswordGenerator.generateTemporaryPassword;
 
 @Service
+@Profile("!dev")
 public class CognitoGatewayImpl implements CognitoGateway {
 
     private static final String CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*";
@@ -102,3 +105,4 @@ public class CognitoGatewayImpl implements CognitoGateway {
 
 
 }
+
