@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class CognitoGatewayFake implements CognitoGateway {
     @Override
     public ClienteResponseDTO cadastrarUsuario(String email, String nome, ClienteResponseDTO clienteResponseDTO) {
-        return null;
+        return ClienteResponseDTO.builder().senha("123456").build();
     }
 
     @Override
