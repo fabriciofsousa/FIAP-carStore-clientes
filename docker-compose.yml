@@ -5,7 +5,7 @@ services:
     container_name: clientes-app
     image: fabriciofsousa/fiap-carstore-clientes:latest
     environment:
-      SPRING_PROFILES_ACTIVE: dev
+      #SPRING_PROFILES_ACTIVE: dev
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_carstore:5432/FIAP-carStore
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
