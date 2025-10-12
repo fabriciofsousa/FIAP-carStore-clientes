@@ -2,6 +2,7 @@ version: '3.9'
 
 services:
   clientes-app:
+    container_name: clientes-app
     image: fabriciofsousa/fiap-carstore-clientes:latest
     environment:
       SPRING_PROFILES_ACTIVE: dev
@@ -19,7 +20,9 @@ services:
     ports:
       - "8081:8080"
     networks:
-      - carstore-network
+      carstore-network:
+        aliases:
+          - clientes-app
     depends_on: []
 
 networks:
