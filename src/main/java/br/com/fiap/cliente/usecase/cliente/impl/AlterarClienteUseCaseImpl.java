@@ -3,7 +3,6 @@ package br.com.fiap.cliente.usecase.cliente.impl;
 import br.com.fiap.cliente.domain.Cliente;
 import br.com.fiap.cliente.exception.ClienteNaoEncontradoException;
 import br.com.fiap.cliente.gateway.cliente.ClienteGateway;
-import br.com.fiap.cliente.gateway.cliente.CognitoGateway;
 import br.com.fiap.cliente.usecase.cliente.AlterarClienteUseCase;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
@@ -17,12 +16,10 @@ public class AlterarClienteUseCaseImpl implements AlterarClienteUseCase {
 
     private final ClienteGateway clienteGateway;
     private final Validator validator;
-    private final CognitoGateway cognitoGateway;
 
-    public AlterarClienteUseCaseImpl(ClienteGateway clienteGateway, Validator validator, CognitoGateway cognitoGateway){
+    public AlterarClienteUseCaseImpl(ClienteGateway clienteGateway, Validator validator){
         this.clienteGateway = clienteGateway;
         this.validator = validator;
-        this.cognitoGateway = cognitoGateway;
     }
     @Override
     public Cliente execute(UUID id, Cliente cliente) {
@@ -42,7 +39,6 @@ public class AlterarClienteUseCaseImpl implements AlterarClienteUseCase {
         Cliente clienteConsultado = clienteGateway.buscarPorId(id)
                 .orElseThrow(() -> new ClienteNaoEncontradoException("Cliente não encontrado"));
 
-        cognitoGateway.atualizarUsuario(clienteConsultado.getEmail(), cliente.getNome(), cliente.getEmail());
         return clienteGateway.salvar(cliente);
     }
 }

@@ -9,7 +9,6 @@ import java.util.UUID;
 
 import br.com.fiap.cliente.ClienteApplication;
 import br.com.fiap.cliente.controller.cliente.dto.ClienteResponseDTO;
-import br.com.fiap.cliente.gateway.cliente.CognitoGateway;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,9 +41,6 @@ import br.com.fiap.cliente.gateway.cliente.ClienteGateway;
 @Transactional
 class ObterClienteUseCaseImplIT {
 
-    @MockBean
-    private CognitoGateway cognitoGateway;
-
    @Autowired
     private ClienteGateway clienteGateway;
 
@@ -52,8 +48,6 @@ class ObterClienteUseCaseImplIT {
 
     @BeforeEach
     void setup(){
-        when(cognitoGateway.cadastrarUsuario(any(), any(), any()))
-                .thenReturn(ClienteResponseDTO.builder().senha("12312").build());
         openMocks = MockitoAnnotations.openMocks(this);
     }
 

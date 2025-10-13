@@ -4,7 +4,6 @@ import br.com.fiap.cliente.config.GlobalExceptionHandler;
 import br.com.fiap.cliente.controller.cliente.ClienteController;
 import br.com.fiap.cliente.controller.cliente.dto.ClienteResponseDTO;
 import br.com.fiap.cliente.domain.Cliente;
-import br.com.fiap.cliente.gateway.cliente.CognitoGateway;
 import br.com.fiap.cliente.usecase.cliente.AlterarClienteUseCase;
 import br.com.fiap.cliente.usecase.cliente.CriarClienteUseCase;
 import br.com.fiap.cliente.usecase.cliente.DeletarClienteUseCase;
@@ -12,7 +11,6 @@ import br.com.fiap.cliente.usecase.cliente.ObterClientePorIdUseCase;
 import br.com.fiap.cliente.usecase.cliente.ObterClienteUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -57,12 +55,9 @@ class ClienteControllerIntegrationTest {
     @MockBean AlterarClienteUseCase alterarClienteUseCase;
     @MockBean DeletarClienteUseCase deletarCliente;
 
-    @MockBean CognitoGateway cognitoGateway;
 
     @BeforeEach
     void setUp(){
-    when(cognitoGateway.cadastrarUsuario(any(), any(), any()))
-            .thenReturn(ClienteResponseDTO.builder().senha("senha123").build());
     }
 
     @Test

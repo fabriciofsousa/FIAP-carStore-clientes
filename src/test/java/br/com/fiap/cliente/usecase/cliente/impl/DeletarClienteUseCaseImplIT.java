@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 
 import br.com.fiap.cliente.ClienteApplication;
 import br.com.fiap.cliente.controller.cliente.dto.ClienteResponseDTO;
-import br.com.fiap.cliente.gateway.cliente.CognitoGateway;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,15 +44,10 @@ class DeletarClienteUseCaseImplIT {
     @Autowired
     private ClienteGateway clienteGateway;
 
-    @MockBean
-    private CognitoGateway cognitoGateway;
-
     AutoCloseable openMocks;
 
     @BeforeEach
     void setup(){
-        when(cognitoGateway.cadastrarUsuario(any(), any(), any()))
-                .thenReturn(ClienteResponseDTO.builder().senha("12312").build());
         openMocks = MockitoAnnotations.openMocks(this);
     }
 

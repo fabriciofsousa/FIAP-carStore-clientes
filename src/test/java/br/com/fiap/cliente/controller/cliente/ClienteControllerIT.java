@@ -3,15 +3,12 @@ package br.com.fiap.cliente.controller.cliente;
 import br.com.fiap.cliente.ClienteApplication;
 import br.com.fiap.cliente.controller.cliente.dto.ClienteRequestDTO;
 import br.com.fiap.cliente.controller.cliente.dto.ClienteResponseDTO;
-import br.com.fiap.cliente.gateway.cliente.CognitoGateway;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -49,17 +44,12 @@ public class ClienteControllerIT {
 
     private final WebApplicationContext context;
 
-    @MockBean
-    private CognitoGateway cognitoGateway;
-
     public ClienteControllerIT(WebApplicationContext context) {
         this.context = context;
     }
 
     @BeforeEach
     public void setup() {
-        when(cognitoGateway.cadastrarUsuario(any(), any(), any()))
-                .thenReturn(ClienteResponseDTO.builder().senha("12312").build());
         RestAssuredMockMvc.mockMvc(MockMvcBuilders.webAppContextSetup(context).build());
     }
 

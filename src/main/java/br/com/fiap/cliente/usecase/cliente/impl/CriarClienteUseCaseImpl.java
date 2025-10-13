@@ -3,7 +3,6 @@ package br.com.fiap.cliente.usecase.cliente.impl;
 import br.com.fiap.cliente.controller.cliente.dto.ClienteResponseDTO;
 import br.com.fiap.cliente.domain.Cliente;
 import br.com.fiap.cliente.gateway.cliente.ClienteGateway;
-import br.com.fiap.cliente.gateway.cliente.CognitoGateway;
 import br.com.fiap.cliente.usecase.cliente.CriarClienteUseCase;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
@@ -18,12 +17,10 @@ public class CriarClienteUseCaseImpl implements CriarClienteUseCase {
 
     private final ClienteGateway clienteGateway;
     private final Validator validator;
-    private final CognitoGateway cognitoGateway;
 
-    public CriarClienteUseCaseImpl(ClienteGateway clienteGateway, Validator validator, CognitoGateway cognitoGateway) {
+    public CriarClienteUseCaseImpl(ClienteGateway clienteGateway, Validator validator) {
         this.clienteGateway = clienteGateway;
         this.validator = validator;
-        this.cognitoGateway = cognitoGateway;
     }
 
 
@@ -39,10 +36,7 @@ public class CriarClienteUseCaseImpl implements CriarClienteUseCase {
         if (existente != null) {
             throw new IllegalArgumentException("Cliente com email " + cliente.getEmail() + " já existe.");
         }
-        ClienteResponseDTO clienteResponseDTO = new ClienteResponseDTO();
-        clienteResponseDTO = cognitoGateway.cadastrarUsuario(cliente.getEmail(), cliente.getNome(), clienteResponseDTO);
-
-        return mapper(clienteGateway.salvar(cliente), clienteResponseDTO.getSenha());
+        return mapper(clienteGateway.salvar(cliente), "1234");
     }
 
 }
