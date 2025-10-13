@@ -14,6 +14,6 @@ COPY --from=build /app/target/*.jar clienteApp.jar
 
 EXPOSE 8080
 
-ENV SPRING_PROFILES_ACTIVE=dev
+#ENV SPRING_PROFILES_ACTIVE=dev
 
 CMD ["java", "-jar", "clienteApp.jar"]
