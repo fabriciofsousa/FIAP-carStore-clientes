@@ -15,6 +15,15 @@ Antes de subir este projeto, você deve ter rodado o projeto [**veiculo**](https
 
 ---
 
+## ☁️ Branches e Ambientes
+
+| Branch | Ambiente | Descrição |
+|--------|-----------|------------|
+| `master` | **AWS Cloud** | Código utilizado para execução e deploy automático na AWS. |
+| `release/docker` | **Local (Docker)** | Versão configurada para rodar em ambiente local via Docker Compose. |
+
+---
+
 ## ▶️ Para rodar localmente
 
 > ⚠️ **Importante:** Este projeto **não cria o banco de dados**, apenas sobe a aplicação de clientes.  
