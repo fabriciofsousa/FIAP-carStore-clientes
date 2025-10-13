@@ -2,9 +2,9 @@
 
 ---
 
-O **FIAP CarStore - Clientes** é um microsserviço responsável pelo gerenciamento das informações de clientes dentro do ecossistema CarStore.
+O **FIAP CarStore - Clientes** é um microsserviço responsável pelo gerenciamento das informações de clientes dentro do ecossistema **CarStore**.
 
-Ele funciona em conjunto com o microsserviço Veículo, compartilhando o mesmo banco de dados PostgreSQL.
+Ele funciona em conjunto com o microsserviço **Veículo**, compartilhando o mesmo banco de dados **PostgreSQL**.  
 Enquanto o serviço de veículos lida com o cadastro e controle de automóveis, o serviço de clientes centraliza os dados dos usuários da plataforma, permitindo futuras integrações entre clientes e seus respectivos veículos.
 
 ---
@@ -17,10 +17,9 @@ Antes de subir este projeto, você deve ter rodado o projeto [**veiculo**](https
 
 ## ▶️ Para rodar localmente
 
----
-Obs.: Este projeto **não cria o banco de dados**, apenas sobe a aplicação de clientes.  
-Ele se conecta ao **mesmo Postgres** que já foi iniciado pelo projeto `veiculo`.
----
+> ⚠️ **Importante:** Este projeto **não cria o banco de dados**, apenas sobe a aplicação de clientes.  
+> Ele se conecta ao **mesmo PostgreSQL** que já foi iniciado pelo projeto `veiculo`.
+
 1. Certifique-se de que o projeto `veiculo` já está rodando:
 
 ```bash
@@ -54,6 +53,26 @@ Assim, ambas as aplicações (`veiculo` e `clientes`) compartilham o mesmo banco
 
 ---
 
+## 🧩 Arquitetura e Benefícios
+
+Este módulo segue o mesmo padrão de arquitetura limpa (Clean Architecture) aplicado em todo o ecossistema CarStore:
+- **Camada de domínio:** concentra as regras de negócio dos clientes.
+- **Camada de infraestrutura:** implementa integrações com banco de dados PostgreSQL e serviços externos, como o AWS Cognito.
+- **Camada de interface:** expõe as APIs REST e integrações com os outros microsserviços.
+
+Essa separação garante **facilidade de manutenção, testes e escalabilidade**.
+
+---
+
 ## 🔗 Endpoints
 
 - Swagger Clientes: [http://localhost:8081/swagger-ui/index.html](http://localhost:8081/swagger-ui/index.html)
+
+---
+
+## 📦 Collection Postman
+
+> * [Fiap-Carstore.postman_collection.json](src%2Fmain%2Fresources%2FFiap-Carstore.postman_collection.json)
+ 
+> * [workspace.postman_globals.json](src%2Fmain%2Fresources%2Fworkspace.postman_globals.json)*
+
