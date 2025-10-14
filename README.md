@@ -24,7 +24,7 @@ Antes de subir este projeto, você deve ter rodado o projeto [**veiculo**](https
 
 ---
 
-## ▶️ Para rodar localmente
+## ▶️ Para rodar localmente(Branch release/docker)
 
 > ⚠️ **Importante:** Este projeto **não cria o banco de dados**, apenas sobe a aplicação de clientes.  
 > Ele se conecta ao **mesmo PostgreSQL** que já foi iniciado pelo projeto `veiculo`.
@@ -33,6 +33,7 @@ Antes de subir este projeto, você deve ter rodado o projeto [**veiculo**](https
 
 ```bash
 cd ../FIAP-carStore-veiculo
+git checkout release/docker
 docker compose up -d
 ```
 
